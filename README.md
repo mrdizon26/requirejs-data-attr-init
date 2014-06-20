@@ -1,29 +1,10 @@
-# Foundation Compass Template
+# RequireJS + data-attr initialiser
 
-The easiest way to get started with Foundation + Compass.
+Setup contains two main things:
 
-## Requirements
+* jQuery CDN fallback
+* Module initialiser for data-attributes
 
-  * Ruby 1.9+
-  * [Node.js](http://nodejs.org)
-  * [compass](http://compass-style.org/): `gem install compass`
-  * [bower](http://bower.io): `npm install bower -g`
+The data attributes initialiser works by loading the ND(Module) object and the modules inside of main. Each individual module has NDModule as a dependency which before returning its own object, will run the NDModule.register() method. The register method takes two parameters being the name and the object reference.
 
-## Quickstart
-
-  * [Download this starter compass project and unzip it](https://github.com/zurb/foundation-compass-template/archive/master.zip)
-  * Run `bower install` to install the latest version of Foundation
-  
-Then when you're working on your project, just run the following command:
-
-```bash
-compass watch
-```
-
-## Upgrading
-
-If you'd like to upgrade to a newer version of Foundation down the road just run:
-
-```bash
-bower update
-```
+It is assumed that in the NDModule private arrays storing the moduleList and objectList they are kept in sync, if not add some error handling.
