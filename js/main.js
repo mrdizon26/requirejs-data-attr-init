@@ -10,6 +10,7 @@ requirejs.config({
 
 
 requirejs(["modules/ND", "modules/spring", "modules/search", "modules/mike"], function(NDModules, spring, search, mike) {
+//requirejs(["modules/ND", "modules/spring", "modules/search"], function(NDModules, spring, search) {
 	"use strict";
     
     // Kicks off the process to initialise the required modules that have been added to the modulesList and objectList arrays

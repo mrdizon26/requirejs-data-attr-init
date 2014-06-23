@@ -13,7 +13,8 @@ define(["jquery"], function(jQuery) {
 
         		// run the moduleList array 
         		for(var i = 0; i<moduleList.length; i++) {
-
+        			console.log(moduleList);
+        			console.log(objectList);
         			// Get the dom elements that match a moduleList name and run their init function.
         			var moduleElement = $('[data-'+moduleList[i]+']');
         			
@@ -28,7 +29,7 @@ define(["jquery"], function(jQuery) {
         						moduleOptions = currentElement.data('options');
 
     						// Run the moduleTasks method - I have separated this for now, but may be able to be brought inside this function.
-        					self.runModuleTasks(currentElement, moduleOptions, i)
+        					self.runModuleTasks(currentElement, moduleOptions, i);
         				});
         			}
         		}
@@ -36,8 +37,10 @@ define(["jquery"], function(jQuery) {
 
         	runModuleTasks: function(element, options, i) {
 
-        		objectList[i].init(element, options);
-
+        		// Instantiate a new Object and pass in the element and options.
+        		// Each ND module MUST have these two parameters.
+        		var newModule = new objectList[i](element, options);
+        		newModule.init();
         	},
 
         	register: function(name, obj) {

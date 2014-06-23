@@ -1,25 +1,25 @@
 define(["jquery", "modules/ND"], function(jQuery, NDModules) {
 
-        var Spring,
-        	NDSpring;
+        var Spring;
 
-        Spring = function() {
+        Spring = function(element, options) {
 
         	var name = "spring",
         		version = 3.1;
 
     		return {
-    			init: function(element, options) {
+    			init: function() {
 	        		console.log('running '+ name + ' module');
 
 	        		// Probably need to merge this with a settings object.
+	        		this.element = element; 
 	        		this.options = options;
 
 	        		// Run and setup this module.
-	        		this.changeColour(element);
+	        		this.changeColour();
 
 	        		if(this.options.clickable) {
-	        			this.addClickEvent(element);	
+	        			this.addClickEvent();	
 	        		}
 	        	},
 
@@ -32,35 +32,30 @@ define(["jquery", "modules/ND"], function(jQuery, NDModules) {
 	        		return version;
 	        	},
 
-	        	changeColour: function(element) {
+	        	changeColour: function() {
 
 	        		var self = this;
-	        		
-	        		console.log(this.options)
 
-	        		$(element).css({
+	        		$(this.element).css({
 	        			"color": self.options.color
 	        		});
 	        	},
 
-	        	addClickEvent: function(element) {
+	        	addClickEvent: function() {
 
-	        		element.on("click", function(){
+	        		this.element.on("click", function(){
 
 	        			alert('Clickable option was passed in');
 	        		})
 
 	        	}
     		};
-
-        };
-
-        // Create a new instance of Search to use. 
-        NDSpring = new Spring();
+        };        
 
         // Register the module name and object (to be used as a reference), this will be called from within the NDModule initialiser.
-		NDModules.register(NDSpring.getName(), NDSpring);
-        return NDSpring;
+		//NDModules.register(NDSpring.getName(), NDSpring);
+		NDModules.register("spring", Spring);
+        return Spring;
 
     }
 );

@@ -1,11 +1,9 @@
 define(["jquery", "modules/ND"], function(jQuery, NDModules) {
         
 
-        var Search,
-        	NDSearch;
+        var Search;
 
-
-        Search = function() {
+        Search = function(element, options) {
 
         	var name = "search",
         		version = 0.1;
@@ -13,6 +11,9 @@ define(["jquery", "modules/ND"], function(jQuery, NDModules) {
     		return {
     			init: function() {
 	        		console.log('running '+ name + ' module');
+
+	        		this.element = element;
+	        		this.options = options;
 	        	},
 
 	        	getName: function() {
@@ -27,12 +28,9 @@ define(["jquery", "modules/ND"], function(jQuery, NDModules) {
 
         };
 
-        // Create a new instance of Search to use. 
-        NDSearch = new Search();
-
         // Register the module name and object (to be used as a reference), this will be called from within the NDModule initialiser.
-		NDModules.register(NDSearch.getName(), NDSearch);
-        return NDSearch;
+		NDModules.register("search", Search);
+        return Search;
 
     }
 );
