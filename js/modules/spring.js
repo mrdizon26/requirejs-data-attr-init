@@ -1,22 +1,66 @@
 define(["jquery", "modules/ND"], function(jQuery, NDModules) {
 
-		// Public object to return
-        var spring = {
-        	name: "spring",
-        	version: 2.1,
-        	init: function() {
+        var Spring,
+        	NDSpring;
 
-        		console.log('running '+ this.name + ' module');
-        	},
-        	getVersion: function() {
+        Spring = function() {
 
-        		console.log(this.name + ' version is: ' + this.version);
-        	}
+        	var name = "spring",
+        		version = 3.1;
+
+    		return {
+    			init: function(element, options) {
+	        		console.log('running '+ name + ' module');
+
+	        		// Probably need to merge this with a settings object.
+	        		this.options = options;
+
+	        		// Run and setup this module.
+	        		this.changeColour(element);
+
+	        		if(this.options.clickable) {
+	        			this.addClickEvent(element);	
+	        		}
+	        	},
+
+	        	getName: function() {
+        			return name;
+	        	},
+
+	        	getVersion: function() {
+
+	        		return version;
+	        	},
+
+	        	changeColour: function(element) {
+
+	        		var self = this;
+	        		
+	        		console.log(this.options)
+
+	        		$(element).css({
+	        			"color": self.options.color
+	        		});
+	        	},
+
+	        	addClickEvent: function(element) {
+
+	        		element.on("click", function(){
+
+	        			alert('Clickable option was passed in');
+	        		})
+
+	        	}
+    		};
+
         };
 
-		// Register the module name and object (to be used as a reference), this will be called from within the NDModule initialiser.
-        NDModules.register(spring.name, spring);
-        return spring;
+        // Create a new instance of Search to use. 
+        NDSpring = new Spring();
+
+        // Register the module name and object (to be used as a reference), this will be called from within the NDModule initialiser.
+		NDModules.register(NDSpring.getName(), NDSpring);
+        return NDSpring;
 
     }
 );

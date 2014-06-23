@@ -1,22 +1,36 @@
 define(["jquery", "modules/ND"], function(jQuery, NDModules) {
 
-		// Public object to return
-        var mike = {
-        	name: "mike",
-        	version: 2.1,
-        	init: function() {
+        var Mike,
+            NDMike;
 
-        		console.log('running '+ this.name + ' module');
-        	},
-        	getVersion: function() {
+        Mike = function() {
 
-        		console.log(this.name + ' version is: ' + this.version);
-        	}
+            var name = "mike",
+                version = 9.99;
+
+            return {
+                init: function() {
+                    console.log('running '+ name + ' module');
+                },
+
+                getName: function() {
+                    return name;
+                },
+
+                getVersion: function() {
+
+                    return version;
+                }
+            };
+
         };
 
-		// Register the module name and object (to be used as a reference), this will be called from within the NDModule initialiser.
-        NDModules.register(mike.name, mike);
-        return mike;
+        // Create a new instance of Search to use. 
+        NDMike = new Mike();
+
+        // Register the module name and object (to be used as a reference), this will be called from within the NDModule initialiser.
+        NDModules.register(NDMike.getName(), NDMike);
+        return NDMike;
 
     }
 );

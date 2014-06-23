@@ -9,17 +9,35 @@ define(["jquery"], function(jQuery) {
 
         	init: function() {
 
+        		var self = this;
+
         		// run the moduleList array 
         		for(var i = 0; i<moduleList.length; i++) {
 
-        			// Get the dom elements that match a moduleList name and run their init function
+        			// Get the dom elements that match a moduleList name and run their init function.
         			var moduleElement = $('[data-'+moduleList[i]+']');
-
+        			
         			if(moduleElement.length > 0) {
-        				objectList[i].init();
-        				objectList[i].getVersion();
+
+        				// If the jQuery object length indicates multiple elements we want to make sure that each element is treated and runs separately.
+        				moduleElement.each(function(index) {
+
+        					// Get the data options
+        					// Module options must be valid JSON format to be interpreted by .data() as an object.
+        					var currentElement = $(this),
+        						moduleOptions = currentElement.data('options');
+
+    						// Run the moduleTasks method - I have separated this for now, but may be able to be brought inside this function.
+        					self.runModuleTasks(currentElement, moduleOptions, i)
+        				});
         			}
         		}
+        	},
+
+        	runModuleTasks: function(element, options, i) {
+
+        		objectList[i].init(element, options);
+
         	},
 
         	register: function(name, obj) {
