@@ -1,5 +1,7 @@
 # RequireJS + data-attr initialiser
 
+testing sourcetree
+
 Setup contains two main things:
 
 * jQuery CDN fallback
